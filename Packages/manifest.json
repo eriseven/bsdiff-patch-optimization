@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.oddworm.addressablesbuildlayoutexplorer": "https://github.com/pschraut/UnityAddressablesBuildLayoutExplorer.git#1.0.0-pre.5",
     "com.unity.addressables": "1.19.19",
     "com.unity.collab-proxy": "2.2.0",
@@ -12,6 +13,7 @@
     "com.unity.timeline": "1.6.5",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.9.1",
+    "com.yasirkula.ingamedebugconsole": "https://github.com/yasirkula/UnityIngameDebugConsole.git",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
