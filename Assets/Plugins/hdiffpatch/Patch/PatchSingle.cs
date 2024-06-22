@@ -48,6 +48,31 @@ namespace SharpHDiffPatch.Core.Patch
             }
         }
 
+        public void Patch(Stream inputStream, string output, bool useBufferedPatch = true, bool useFullBuffer = false,
+            bool useFastBuffer = false)
+        {
+                        isUseBufferedPatch = useBufferedPatch;
+            isUseFullBuffer = useFullBuffer;
+            isUseFastBuffer = useFastBuffer;
+
+            using (FileStream outputStream = new FileStream(output, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite))
+            {
+                if (inputStream.Length != headerInfo.oldDataSize)
+                    throw new InvalidDataException($"[PatchSingle::Patch] The patch directory is expecting old size to be equivalent as: {headerInfo.oldDataSize} bytes, but the input file has unmatch size: {inputStream.Length} bytes!");
+
+                HDiffPatch.Event.PushLog($"[PatchSingle::Patch] Existing old file size: {inputStream.Length} is matched!", Verbosity.Verbose);
+                HDiffPatch.Event.PushLog($"[PatchSingle::Patch] Staring patching routine at position: {headerInfo.chunkInfo.headEndPos}", Verbosity.Verbose);
+
+                IPatchCore patchCore = null;
+                if (isUseFastBuffer && isUseBufferedPatch)
+                    patchCore = new PatchCoreFastBuffer(token, headerInfo.newDataSize, Stopwatch.StartNew(), "", output);
+                else
+                    patchCore = new PatchCore(token, headerInfo.newDataSize, Stopwatch.StartNew(), "", output);
+
+                StartPatchRoutine(inputStream, outputStream, patchCore);
+            }
+        }
+
         private void StartPatchRoutine(Stream inputStream, Stream outputStream, IPatchCore patchCore)
         {
             bool isCompressed = headerInfo.compMode != CompressionMode.nocomp;

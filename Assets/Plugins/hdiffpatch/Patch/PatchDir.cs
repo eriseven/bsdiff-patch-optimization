@@ -141,6 +141,12 @@ namespace SharpHDiffPatch.Core.Patch
             }
         }
 
+        public void Patch(Stream input, string output, bool useBufferedPatch = true, bool useFullBuffer = false,
+            bool useFastBuffer = false)
+        {
+            throw new NotImplementedException();
+        }
+
         private long GetOldFileSize(DirectoryReferencePair dirData)
         {
             long fileSize = 0;
