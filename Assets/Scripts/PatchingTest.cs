@@ -72,7 +72,7 @@ public class PatchingTest : MonoBehaviour
             if (File.Exists(patchPath))
             {
                 var record = new PatchingRecord();
-                record.PatchFile = fileName;
+                record.PatchFile = relativePath;
                 record.OldSize = new FileInfo(file).Length;
                 record.PatchSize = new FileInfo(patchPath).Length;
 
