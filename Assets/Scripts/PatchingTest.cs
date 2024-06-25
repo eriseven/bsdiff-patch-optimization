@@ -159,7 +159,12 @@ public class PatchingTest : MonoBehaviour
         }           
     }
 #else
-    [DllImport ("hpatchz")] private static extern int hpatchz(string oldFileName, string diffFileName, string outNewFileName, long cacheMemory);
+    #if UNITY_IOS
+    [DllImport ("__Internal")] 
+    #else
+    [DllImport ("hpatchz")] 
+    #endif
+    private static extern int hpatchz(string oldFileName, string diffFileName, string outNewFileName, long cacheMemory);
 #endif
 #endif
     
